@@ -15,6 +15,19 @@ export const PartItem = ({ item, parts, setParts }) => {
   },[parts])
 
   return (
+    <>
+    <style type="text/css">
+      {`
+      .btn-wolter1 {
+        background-color: #29a28b;
+        color: white;
+      }
+      .btn-wolter1:hover {
+        background-color: #04427d;
+        color: white;
+      }
+      `}
+    </style>
     <tr>
       <td>{item['Manufacturer']}</td>
       <td>{item['Catalog or Item Number']}</td>
@@ -32,7 +45,7 @@ export const PartItem = ({ item, parts, setParts }) => {
           Remove Part
         </Button>) 
         : (<Button 
-          variant="primary" 
+          variant="wolter1" 
           onClick={() => {
             setParts([...parts, item['Catalog or Item Number']])
             setSelected(!selected)
@@ -42,5 +55,6 @@ export const PartItem = ({ item, parts, setParts }) => {
         </Button>)}
       </td>
     </tr>
+    </>
   )
 }

@@ -20,4 +20,17 @@ code {
   color: #fff!important;;
 }
 
+a:link {
+  text-decoration: none;
+  color: #04427d;
+}
+
+.remove-item {
+  border: none;
+  border-radius:100%;
+  background-color:#000;
+  width: 25px;
+  color:#fff;
+}
+
 /* layout structure */

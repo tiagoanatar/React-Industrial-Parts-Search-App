@@ -1,6 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
 $rest_json = file_get_contents("php://input");
 $_POST = json_decode($rest_json, true);
 
@@ -8,9 +9,7 @@ if (empty($_POST['name']) && empty($_POST['email'])) die();
 
 if ($_POST)
 	{
-
 	// set response code - 200 OK
-
 	http_response_code(200);
 	$subject = 'Parts App Message' . $_POST['name'];
 	$to = "tiagoanatar@gmail.com";
@@ -26,14 +25,12 @@ if ($_POST)
 		foreach($_POST['parts'] as $key=>$val) {
         	$message .= $val.',';
     	};
-    $message .= "</td></tr>";
+	$message .= "<tr><td><strong>Image:</strong> </td><td>" . $_POST['file'] . "</td></tr>";
+  $message .= "</td></tr>";
 	$message .= "</table>";
 	$message .= "</div></body></html>";
 
-	//$msg = $_POST['number'] . $_POST['message'];
-
 	// Headers
-
 	$headers = "MIME-Version: 1.0\r\n";
 	$headers.= "Content-type: text/html; charset=UTF-8\r\n";
 	$headers.= "From: <" . $from . ">";
@@ -49,7 +46,6 @@ if ($_POST)
 	{
 
 	// tell the user about error
-
 	echojson_encode(["sent" => false, "message" => "Something went wrong"]);
 	}
 

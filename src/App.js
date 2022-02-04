@@ -20,7 +20,7 @@ function App() {
   const [parts, setParts] = useState([])
 
   // pagination
-  const pageMultiplier = 200
+  const pageMultiplier = 50
 
   const [pages, setPages] = useState({prev: 0, next: pageMultiplier})
 
@@ -70,6 +70,15 @@ function App() {
           </Col>
         </Row>
       </Container>
+      <Container style={{textAlign: 'center', padding: '20px', borderTop: '3px solid #ccc'}}>
+        <Row>
+          <Col sm={12}>
+            Wolters Motors & Drives, 2875 North Berkeley Lake Dr. Suite # 1, Duluth, GA 30096
+            <br />
+            1-844-383-2492 | Tel (678) 417-5830 | Fax (678) 417-5825
+          </Col>
+        </Row>
+      </Container> 
     </>
   );
 }
