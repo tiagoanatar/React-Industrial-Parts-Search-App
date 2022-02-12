@@ -1,25 +1,26 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useEffect } from 'react'
-import { dataFinal } from './data/data'
-import { Container, Row, Col } from 'react-bootstrap';
-import { Search } from './components/Search'
-import { Header } from './components/Header'
-import { QuoteForm } from './components/QuoteForm'
-import { PartsTable } from './components/PartsTable'
-import { PartsPagination } from './components/Pagination'
+import menuBar from './assets/bars-solid.svg';
+import { useState, useEffect } from 'react';
+import { dataFinal } from './data/data';
+import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
+import { Search } from './components/Search';
+import { Header } from './components/Header';
+import { QuoteForm } from './components/QuoteForm';
+import { PartsTable } from './components/PartsTable';
+import { PartsPagination } from './components/Pagination';
 
 function App() {
 
-  // data source load
-  const [data, setData] = useState(dataFinal)
+  // Data source load
+  const [data] = useState(dataFinal)
 
-  // form search control
+  // Form search control
   const [search, setSearch] = useState(undefined)
 
-  // select parts data
+  // Select parts data
   const [parts, setParts] = useState([])
 
-  // pagination
+  // Pagination
   const pageMultiplier = 50
 
   const [pages, setPages] = useState({prev: 0, next: pageMultiplier})
@@ -32,8 +33,29 @@ function App() {
     setPages({prev: 0, next: pageMultiplier})
   },[])
 
+  // Modal
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <>
+      <a className="mobile-menu" onClick={handleShow}><img alt="Display form" src={menuBar} width="40px" height="40px" /></a>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Body>
+          <QuoteForm 
+            parts={parts} 
+            setParts={setParts} 
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <Header />
       <Container>
         <Row>
@@ -49,17 +71,16 @@ function App() {
               data={data} 
               search={search} 
               pages={pages} 
-              pages={pages} 
             />
           </Col>
-          <Col sm={3}>
+          <Col sm={3} className="hide-mobile">
             <QuoteForm 
               parts={parts} 
               setParts={setParts} 
             />
           </Col>
         </Row>
-        <Row>
+        <Row className="hide-mobile">
           <Col>
             <PartsPagination 
               search={search} 

@@ -5,13 +5,13 @@ export const PartsTable = ({ parts, setParts, data, search, pages })=> {
 
   return (
     <>
-      <Table striped bordered hover style={{tableLayout: 'fixed'}}>
-        <thead>
+      <Table striped bordered hover style={{tableLayout: 'fixed'}} responsive>
+        <thead className="hide-mobile">
           <tr>
-            <th width='15%'>Manufacturer</th>
-            <th width='22%'>Catalog Number</th>
-            <th>Description</th>
-            <th width='20%'>Select Part</th>
+            <th width='15%'><small>Manufacturer</small></th>
+            <th width='22%'><small>Number</small></th>
+            <th><small>Description</small></th>
+            <th width='20%'><small>Select</small></th>
           </tr>
         </thead>
         <tbody>
@@ -41,13 +41,3 @@ export const PartsTable = ({ parts, setParts, data, search, pages })=> {
       </>
       );
     }
-
-// style
-
-const resultsForm = {
-  backgroundColor: '#f1f1f1', 
-  padding: '12px', 
-  borderRadius: '5px', 
-  marginTop:'10px', 
-  marginBottom: '10px'
-}

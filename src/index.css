@@ -33,4 +33,59 @@ a:link {
   color:#fff;
 }
 
+.search-input {
+  background-image: url('/src/assets/magnifying-glass-solid.svg');
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: right 8px bottom 8px;
+}
+
+.right-align {
+  text-align:right;
+}
+
+.show-mobile {
+  display:none!important;
+}
+
+.mobile-menu {
+  display:none;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .hide-mobile {
+    display:none!important;
+  }
+
+  .show-mobile {
+    display:flex!important;
+  }
+
+  .center-mobile {
+    text-align:center;
+  }
+
+  .right-align {
+    text-align:center;
+  }
+
+  td {
+    display: block;
+  }
+
+  tr {
+    border-bottom: 1px solid #7a7a7a!important;
+  }
+
+  .mobile-menu {
+    display:inline-block;
+    position:fixed;
+    right:0;
+    padding:10px;
+    background-color: white;
+    cursor: pointer;
+  }
+}
+
 /* layout structure */
