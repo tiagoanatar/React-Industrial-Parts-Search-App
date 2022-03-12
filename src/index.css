@@ -52,6 +52,42 @@ a:link {
   display:none;
 }
 
+.footer {
+  background-color:#00143a;
+  color:#fff;
+  padding-top:40px;
+  padding-bottom:40px;
+  font-size:80%;
+}
+
+.footer h6 {
+  text-transform: uppercase;
+}
+
+.footer a {
+  color:#fff;
+}
+
+.footer ul {
+  margin:0;
+  padding:0;
+  margin-left:15px;
+}
+
+.footer li {
+  list-style-type: none;
+  position: relative;
+  padding-left: 15px;
+}
+
+.footer li:before {
+  content: "\25BA \0020";
+  font-size: 12px;
+  position: absolute;
+  top: 5px;
+  left: -10px;
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   .hide-mobile {

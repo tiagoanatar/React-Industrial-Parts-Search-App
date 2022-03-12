@@ -9,6 +9,7 @@ export const Search = ({ search, setSearch })=> {
       value={search} 
       onChange={(e) => setSearch(e.target.value)} 
       className='search-input'
+      style={{border: '8px solid #04348d'}}
     />
   );
 }

@@ -1,6 +1,11 @@
-import { useState, useEffect } from 'react'
-import { Form, Button, ListGroup } from 'react-bootstrap'
-import axios from 'axios';
+import { useState, useEffect, useRef  } from 'react';
+import { Form, Button, ListGroup } from 'react-bootstrap';
+import emailjs from '@emailjs/browser';
+import easa from '../assets/EASA-.jpg';
+
+import regal from '../assets/regal-beloit-logo-png-transparent.png';
+import baldor from '../assets/baldor.png';
+import weg from '../assets/weg.png';
 
 export const QuoteForm = ({ parts, setParts }) => {
 
@@ -9,6 +14,9 @@ export const QuoteForm = ({ parts, setParts }) => {
   useEffect(() => {
     setData({...data, parts: [...parts]})
   },[parts])
+
+  // Email js
+  const form = useRef();
 
   // Submit form
   const onSubmit = async (e) => {
@@ -61,17 +69,8 @@ export const QuoteForm = ({ parts, setParts }) => {
       return
     }
 
-    // send email
-    axios({
-      method: 'post',
-      url: "https://www.woltersmotors.com/api/index.php",
-      headers: { 'content-type': 'application/json' },
-      data: data
-    })
-      .then(result => {
-        setData({...data, mailSent: result.data.sent})
-      })
-      .catch(error => console.log(data) );
+    //EmailJS function
+    sendEmail(e)
       
     alert('Message sent. Thank You.')
     setData({name: '', email: '', company: '', message: '', parts: [], file: '', mailSent: false})
@@ -80,14 +79,27 @@ export const QuoteForm = ({ parts, setParts }) => {
   // File Up-upload
   function onFileChange(e) {
     let files = e.target.files;
-    let fileReader = new FileReader();
-    fileReader.readAsDataURL(files[0]);
-
-    fileReader.onload = (e) => {
-      setData({...data, file: e.target.result})
-      console.log(e.target.result)
+    if(files[0].size > 2097152){
+      alert('Please upload up to 2mb image.')
+      return
     }
+    //let fileReader = new FileReader();
+    console.log(files[0]);
+    setData({...data, file: files[0]});
   }
+
+  //EmailJS function
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_kt6k2qv', 'template_ap5sznp', form.current, 'user_gITlE5kyklllEkKNjkWmu')
+      .then((result) => {
+        console.log(result.text);
+        window.location.replace('http://www.woltersmotors.com/');
+      }, (error) => {
+        console.log(error.text);
+      });
+  };
 
   return (
     <>
@@ -103,22 +115,22 @@ export const QuoteForm = ({ parts, setParts }) => {
         }
         `}
       </style>
-      <Form onSubmit={onSubmit} style={{backgroundColor: '#04348d', padding: '20px', color: '#fff'}}>
+      <Form ref={form} onSubmit={onSubmit} style={{backgroundColor: '#04348d', padding: '20px', color: '#fff'}}>
         <h5>Request a Quote</h5>
         <Form.Group className='mb-3' controlId='nameForm'>
-          <Form.Control type='text' placeholder='Name' value={data.name} onChange={(e) => setData({...data, name: e.target.value})} />
+          <Form.Control type='text' placeholder='Name' name='name' value={data.name} onChange={(e) => setData({...data, name: e.target.value})} />
         </Form.Group>
         <Form.Group className='mb-3' controlId='emailForm'>
-          <Form.Control type='email' placeholder='Email' value={data.email} onChange={(e) => setData({...data, email: e.target.value})} />
+          <Form.Control type='email' placeholder='Email' name='email' value={data.email} onChange={(e) => setData({...data, email: e.target.value})} />
         </Form.Group>
         <Form.Group className='mb-3' controlId='companyForm'>
-          <Form.Control type='text' placeholder='Company Name' value={data.company} onChange={(e) => setData({...data, company: e.target.value})} />
+          <Form.Control type='text' placeholder='Company Name' name='company' value={data.company} onChange={(e) => setData({...data, company: e.target.value})} />
         </Form.Group>
         <Form.Group className='mb-3' controlId='messageForm'>
-          <Form.Control as='textarea' placeholder='Message' rows={3} value={data.message} onChange={(e) => setData({...data, message: e.target.value})} />
+          <Form.Control as='textarea' placeholder='Message' name='message' rows={3} value={data.message} onChange={(e) => setData({...data, message: e.target.value})} />
         </Form.Group>
         <Form.Group className="pictureForm" controlId="formFile">
-          <Form.Control type="file" accept="image/png, image/jpeg" onChange={(e) => onFileChange(e)} />
+          <Form.Control type="file" name='file' accept="image/png, image/jpeg" onChange={(e) => onFileChange(e)} />
         </Form.Group>
         <Form.Label column>Selected Parts</Form.Label>
         <ListGroup>
@@ -132,10 +144,42 @@ export const QuoteForm = ({ parts, setParts }) => {
             </ListGroup.Item>)
           })}
         </ListGroup>
+        <Form.Group className='mb-3' controlId='nameParts' style={{display: 'none'}}>
+          <Form.Control type='text' placeholder='Parts' name='parts' value={parts} onChange={(e) => e.target.value = parts} />
+        </Form.Group>
         <Button variant='wolter1' type='submit' style={{marginTop:'15px'}}>
           Request Your Quote
         </Button>
       </Form>
+      <div style={{textAlign: 'center'}}>
+        <p>
+          <img  
+            src={easa}  
+            alt='EASA Logo'
+            width='220px' 
+          />
+        </p>
+        <p>
+          <img  
+            src={regal}  
+            alt='Regal Logo'
+            width='250px' 
+          />
+        </p>
+        <p>
+          <img  
+            src={baldor}  
+            alt='Baldor Logo'
+            width='220px'
+          />
+        </p>
+        <p>
+          <img  
+            src={weg}  
+            alt='WEG Logo' 
+          />
+        </p>
+      </div>
     </>
   )
 }

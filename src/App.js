@@ -5,6 +5,7 @@ import { dataFinal } from './data/data';
 import { Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import { Search } from './components/Search';
 import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 import { QuoteForm } from './components/QuoteForm';
 import { PartsTable } from './components/PartsTable';
 import { PartsPagination } from './components/Pagination';
@@ -91,15 +92,7 @@ function App() {
           </Col>
         </Row>
       </Container>
-      <Container style={{textAlign: 'center', padding: '20px', borderTop: '3px solid #ccc'}}>
-        <Row>
-          <Col sm={12}>
-            Wolters Motors & Drives, 2875 North Berkeley Lake Dr. Suite # 1, Duluth, GA 30096
-            <br />
-            1-844-383-2492 | Tel (678) 417-5830 | Fax (678) 417-5825
-          </Col>
-        </Row>
-      </Container> 
+      <Footer />
     </>
   );
 }
