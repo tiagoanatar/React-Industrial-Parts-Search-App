@@ -1,5 +1,13 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import WolterLogo from '../assets/Wolters-Motors-Logo.png'
+import ScriptTag from 'react-script-tag';
+import { FaMobileAlt } from 'react-icons/fa';
+
+export const PhoneTracking = ()=> {
+  return (
+    <ScriptTag isHydrating={true} type="text/javascript" src="//cdn.callrail.com/companies/168163266/93cacf6dd2ac7678bbfb/12/swap.js" />
+  )
+}
 
 export const Header = ()=> {
   return (
@@ -16,7 +24,8 @@ export const Header = ()=> {
             </a>
           </Col>
           <Col className="right-align">
-            <h5><a href="tel:8446863663">888-WOLTERS</a></h5>
+            <PhoneTracking />
+            <h5 style={{display: 'flex', alignItems: 'center', justifyContent: 'right'}}><FaMobileAlt /><a href="tel:8889658377">888-965-8377</a></h5>
           </Col>
         </Row>
       </Container>
